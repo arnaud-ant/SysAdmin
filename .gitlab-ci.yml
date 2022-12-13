@@ -1,0 +1,35 @@
+# This file is a template, and might need editing before it works on your project.
+# To contribute improvements to CI/CD templates, please follow the Development guide at:
+# https://docs.gitlab.com/ee/development/cicd/templates.html
+# This specific template is located at:
+# https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Python.gitlab-ci.yml
+
+# Official language image. Look for the different tagged releases at:
+# https://hub.docker.com/r/library/python/tags/
+image: arnauddoublea/gitlab:latest
+
+
+before_script:
+    - export http_proxy=http://exempleproxy.com/
+    - export https_proxy=http://exempleproxy.com/
+    - export ftp_proxy=http://ftpexempleproxy.com/
+    - python3 -V  # Print out python version for debugging
+
+test:
+  stage : test
+  script:
+    - python3 -m unittest test.py
+
+pylint:
+  stage : test
+  script:
+    - mkdir ./pylint
+    - pylint --output-format=text --function-naming-style=PascalCase --argument-naming-style=camelCase --const-naming-style=camelCase --variable-naming-style=camelCase main.py test.py Script/__init__.py | tee ./pylint/pylint.log || pylint-exit $?
+    - PYLINT_SCORE=$(sed -n 's/^Your code has been rated at \([-0-9.]*\)\/.*/\1/p' ./pylint/pylint.log)
+    - anybadge --label=Pylint --file=pylint/pylint.svg --value=$PYLINT_SCORE 2=red 4=orange 8=yellow 10=green
+    - echo "Pylint score is $PYLINT_SCORE"
+  artifacts:
+    paths:
+      - ./pylint/
+
+

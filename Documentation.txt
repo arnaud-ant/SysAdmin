@@ -1,0 +1,38 @@
+Documentations:
+Test.py: fichier qui permettent de run les tests.
+On a mis en dur des données obtenues avec l'accès aux machines avec paramiko. Les variables qu'on obtient sont:
+        data : Liste qui contient [RAM ( en %), CPU( en %), ping (en ms)]
+
+        nbConnectLastMinute : Le nombre de connection qu'il y a eu les 5 dernieres secondes
+                   (dans le nombre de ligne qu'il faut lire pour mettre à jour nos données
+
+        logs : Liste qui contient pour chaque requete [source,date,page,answer]
+
+        newStatByPage : Dictionnaire qui contient les pages qui ont été visité
+                        et le nombre de visite les X dernieres minutes
+
+        statByPage : Dictionnaire qui contient les stats totales du serveurs par rapport
+                     aux pages demandées et au nombre de demande
+
+        newStatByConnection : Dictionnaire qui contient qui a envoyé une requetes aux serveurs
+                              et combien il en a envoyé depuis les X dernieres minutes
+
+        statByConnection : Dictionnaire qui contient les stats totales du serveurs par rapport
+                          aux personnes qui ont demandé un page et combien ils en ont demandées
+
+       
+Dans chaque fonctions test on vérifie que les données obtenues après le parsing correspondent bien aux variables indiquées dans la fonctions
+(par exemple testnb404 vérifie qu'après le parsing on a bien le nombre d'erreurs 404 des 5 dernières secondes).
+On a en plus test_fusiondico qui vérifie comme son nom l'indique que la fonction de fusion de dictionnaires fonctionne.
+Enfin, test_regex vérifie qu'on a bien le bon format pour les adresses ip, les dates, les indices d'erreurs (ex:404) et les noms de fichiers grâce à des regex.
+
+_init_.py: fichier contenant les fonctions que l'on va tester
+
+
+main.py
+
+Dans le main.py on utilise paramiko pour  se connecter, on utilise les fonctions du script pour obtenir les données par parsing et on 
+afficher ces données grâce à dash
+
+
+       
