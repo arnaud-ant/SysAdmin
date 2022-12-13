@@ -1,0 +1,12 @@
+{
+    "machines": [
+        {
+            "label": "exemple1",
+            "value": "exemple1.com"
+        },
+        {
+            "label": "exemple2",
+            "value": "exemple2.org"
+        }
+    ]
+}
